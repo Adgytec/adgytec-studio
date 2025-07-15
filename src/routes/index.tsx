@@ -1,3 +1,4 @@
+import { OutlinedButton } from "@adgytec/adgytec-web-ui-components";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -5,5 +6,10 @@ export const Route = createFileRoute("/")({
 });
 
 function App() {
-  return <div className="trial">Hello</div>;
+  return (
+    <div className="trial">
+      Hello
+      <OutlinedButton>hello</OutlinedButton>
+    </div>
+  );
 }
