@@ -9,11 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthLayoutRouteRouteImport } from './routes/_authLayout/route'
+import { Route as HomeLayoutIndexRouteImport } from './routes/_homeLayout/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
+import { Route as AuthLayoutresetPasswordResetPasswordRouteImport } from './routes/_authLayout/(reset-password)/reset-password'
+import { Route as AuthLayoutresetPasswordConfirmResetPasswordRouteImport } from './routes/_authLayout/(reset-password)/confirm-reset-password'
+import { Route as AuthLayoutloginLoginRouteImport } from './routes/_authLayout/(login)/login'
+import { Route as AuthLayoutloginConfirmLoginRouteImport } from './routes/_authLayout/(login)/confirm-login'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const AuthLayoutRouteRoute = AuthLayoutRouteRouteImport.update({
+  id: '/_authLayout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeLayoutIndexRoute = HomeLayoutIndexRouteImport.update({
+  id: '/_homeLayout/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -22,40 +31,104 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthLayoutresetPasswordResetPasswordRoute =
+  AuthLayoutresetPasswordResetPasswordRouteImport.update({
+    id: '/(reset-password)/reset-password',
+    path: '/reset-password',
+    getParentRoute: () => AuthLayoutRouteRoute,
+  } as any)
+const AuthLayoutresetPasswordConfirmResetPasswordRoute =
+  AuthLayoutresetPasswordConfirmResetPasswordRouteImport.update({
+    id: '/(reset-password)/confirm-reset-password',
+    path: '/confirm-reset-password',
+    getParentRoute: () => AuthLayoutRouteRoute,
+  } as any)
+const AuthLayoutloginLoginRoute = AuthLayoutloginLoginRouteImport.update({
+  id: '/(login)/login',
+  path: '/login',
+  getParentRoute: () => AuthLayoutRouteRoute,
+} as any)
+const AuthLayoutloginConfirmLoginRoute =
+  AuthLayoutloginConfirmLoginRouteImport.update({
+    id: '/(login)/confirm-login',
+    path: '/confirm-login',
+    getParentRoute: () => AuthLayoutRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/': typeof HomeLayoutIndexRoute
+  '/confirm-login': typeof AuthLayoutloginConfirmLoginRoute
+  '/login': typeof AuthLayoutloginLoginRoute
+  '/confirm-reset-password': typeof AuthLayoutresetPasswordConfirmResetPasswordRoute
+  '/reset-password': typeof AuthLayoutresetPasswordResetPasswordRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/': typeof HomeLayoutIndexRoute
+  '/confirm-login': typeof AuthLayoutloginConfirmLoginRoute
+  '/login': typeof AuthLayoutloginLoginRoute
+  '/confirm-reset-password': typeof AuthLayoutresetPasswordConfirmResetPasswordRoute
+  '/reset-password': typeof AuthLayoutresetPasswordResetPasswordRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_authLayout': typeof AuthLayoutRouteRouteWithChildren
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/_homeLayout/': typeof HomeLayoutIndexRoute
+  '/_authLayout/(login)/confirm-login': typeof AuthLayoutloginConfirmLoginRoute
+  '/_authLayout/(login)/login': typeof AuthLayoutloginLoginRoute
+  '/_authLayout/(reset-password)/confirm-reset-password': typeof AuthLayoutresetPasswordConfirmResetPasswordRoute
+  '/_authLayout/(reset-password)/reset-password': typeof AuthLayoutresetPasswordResetPasswordRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/demo/tanstack-query'
+  fullPaths:
+    | '/demo/tanstack-query'
+    | '/'
+    | '/confirm-login'
+    | '/login'
+    | '/confirm-reset-password'
+    | '/reset-password'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo/tanstack-query'
-  id: '__root__' | '/' | '/demo/tanstack-query'
+  to:
+    | '/demo/tanstack-query'
+    | '/'
+    | '/confirm-login'
+    | '/login'
+    | '/confirm-reset-password'
+    | '/reset-password'
+  id:
+    | '__root__'
+    | '/_authLayout'
+    | '/demo/tanstack-query'
+    | '/_homeLayout/'
+    | '/_authLayout/(login)/confirm-login'
+    | '/_authLayout/(login)/login'
+    | '/_authLayout/(reset-password)/confirm-reset-password'
+    | '/_authLayout/(reset-password)/reset-password'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AuthLayoutRouteRoute: typeof AuthLayoutRouteRouteWithChildren
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  HomeLayoutIndexRoute: typeof HomeLayoutIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_authLayout': {
+      id: '/_authLayout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthLayoutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_homeLayout/': {
+      id: '/_homeLayout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof HomeLayoutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/tanstack-query': {
@@ -65,12 +138,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authLayout/(reset-password)/reset-password': {
+      id: '/_authLayout/(reset-password)/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof AuthLayoutresetPasswordResetPasswordRouteImport
+      parentRoute: typeof AuthLayoutRouteRoute
+    }
+    '/_authLayout/(reset-password)/confirm-reset-password': {
+      id: '/_authLayout/(reset-password)/confirm-reset-password'
+      path: '/confirm-reset-password'
+      fullPath: '/confirm-reset-password'
+      preLoaderRoute: typeof AuthLayoutresetPasswordConfirmResetPasswordRouteImport
+      parentRoute: typeof AuthLayoutRouteRoute
+    }
+    '/_authLayout/(login)/login': {
+      id: '/_authLayout/(login)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthLayoutloginLoginRouteImport
+      parentRoute: typeof AuthLayoutRouteRoute
+    }
+    '/_authLayout/(login)/confirm-login': {
+      id: '/_authLayout/(login)/confirm-login'
+      path: '/confirm-login'
+      fullPath: '/confirm-login'
+      preLoaderRoute: typeof AuthLayoutloginConfirmLoginRouteImport
+      parentRoute: typeof AuthLayoutRouteRoute
+    }
   }
 }
 
+interface AuthLayoutRouteRouteChildren {
+  AuthLayoutloginConfirmLoginRoute: typeof AuthLayoutloginConfirmLoginRoute
+  AuthLayoutloginLoginRoute: typeof AuthLayoutloginLoginRoute
+  AuthLayoutresetPasswordConfirmResetPasswordRoute: typeof AuthLayoutresetPasswordConfirmResetPasswordRoute
+  AuthLayoutresetPasswordResetPasswordRoute: typeof AuthLayoutresetPasswordResetPasswordRoute
+}
+
+const AuthLayoutRouteRouteChildren: AuthLayoutRouteRouteChildren = {
+  AuthLayoutloginConfirmLoginRoute: AuthLayoutloginConfirmLoginRoute,
+  AuthLayoutloginLoginRoute: AuthLayoutloginLoginRoute,
+  AuthLayoutresetPasswordConfirmResetPasswordRoute:
+    AuthLayoutresetPasswordConfirmResetPasswordRoute,
+  AuthLayoutresetPasswordResetPasswordRoute:
+    AuthLayoutresetPasswordResetPasswordRoute,
+}
+
+const AuthLayoutRouteRouteWithChildren = AuthLayoutRouteRoute._addFileChildren(
+  AuthLayoutRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AuthLayoutRouteRoute: AuthLayoutRouteRouteWithChildren,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  HomeLayoutIndexRoute: HomeLayoutIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

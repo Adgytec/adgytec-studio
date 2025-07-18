@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import "./styles/main.css";
 
+// amplify config
+import "@/config/amplify/amplify.ts";
+
 import * as TanStackQueryProvider from "./integrations/tanstack-query/root-provider.tsx";
 
 // Import the generated route tree
