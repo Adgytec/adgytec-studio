@@ -16,5 +16,5 @@ export const isAuthenticated: IsAuthenticated = async () => {
 };
 
 export const isNotAuthenticated: IsNotAuthenticated = async () => {
-  return !isAuthenticated();
+  return !(await isAuthenticated());
 };

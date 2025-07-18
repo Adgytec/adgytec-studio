@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HomeLayoutRouteRouteImport } from './routes/_homeLayout/route'
 import { Route as AuthLayoutRouteRouteImport } from './routes/_authLayout/route'
 import { Route as HomeLayoutIndexRouteImport } from './routes/_homeLayout/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
@@ -17,14 +18,18 @@ import { Route as AuthLayoutresetPasswordConfirmResetPasswordRouteImport } from 
 import { Route as AuthLayoutloginLoginRouteImport } from './routes/_authLayout/(login)/login'
 import { Route as AuthLayoutloginConfirmLoginRouteImport } from './routes/_authLayout/(login)/confirm-login'
 
+const HomeLayoutRouteRoute = HomeLayoutRouteRouteImport.update({
+  id: '/_homeLayout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthLayoutRouteRoute = AuthLayoutRouteRouteImport.update({
   id: '/_authLayout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeLayoutIndexRoute = HomeLayoutIndexRouteImport.update({
-  id: '/_homeLayout/',
+  id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => HomeLayoutRouteRoute,
 } as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   id: '/demo/tanstack-query',
@@ -74,6 +79,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authLayout': typeof AuthLayoutRouteRouteWithChildren
+  '/_homeLayout': typeof HomeLayoutRouteRouteWithChildren
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/_homeLayout/': typeof HomeLayoutIndexRoute
   '/_authLayout/(login)/confirm-login': typeof AuthLayoutloginConfirmLoginRoute
@@ -101,6 +107,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_authLayout'
+    | '/_homeLayout'
     | '/demo/tanstack-query'
     | '/_homeLayout/'
     | '/_authLayout/(login)/confirm-login'
@@ -111,12 +118,19 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthLayoutRouteRoute: typeof AuthLayoutRouteRouteWithChildren
+  HomeLayoutRouteRoute: typeof HomeLayoutRouteRouteWithChildren
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  HomeLayoutIndexRoute: typeof HomeLayoutIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_homeLayout': {
+      id: '/_homeLayout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof HomeLayoutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authLayout': {
       id: '/_authLayout'
       path: ''
@@ -129,7 +143,7 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof HomeLayoutIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof HomeLayoutRouteRoute
     }
     '/demo/tanstack-query': {
       id: '/demo/tanstack-query'
@@ -189,10 +203,22 @@ const AuthLayoutRouteRouteWithChildren = AuthLayoutRouteRoute._addFileChildren(
   AuthLayoutRouteRouteChildren,
 )
 
+interface HomeLayoutRouteRouteChildren {
+  HomeLayoutIndexRoute: typeof HomeLayoutIndexRoute
+}
+
+const HomeLayoutRouteRouteChildren: HomeLayoutRouteRouteChildren = {
+  HomeLayoutIndexRoute: HomeLayoutIndexRoute,
+}
+
+const HomeLayoutRouteRouteWithChildren = HomeLayoutRouteRoute._addFileChildren(
+  HomeLayoutRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   AuthLayoutRouteRoute: AuthLayoutRouteRouteWithChildren,
+  HomeLayoutRouteRoute: HomeLayoutRouteRouteWithChildren,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  HomeLayoutIndexRoute: HomeLayoutIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
