@@ -150,6 +150,11 @@
   --button-border-width: 0.125rem;
   --tree-font-size: 1rem;
 
+  --form-label-text: 1rem;
+  --form-input-text: 1.125rem;
+  --form-input-gap: 0.5rem;
+  --form-gap: 1.25rem;
+
   caret-color: var(--color-primary);
   accent-color: var(--color-primary);
 }
@@ -162,7 +167,7 @@
 }
 
 [data-disabled] {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 [data-disabled]:not([data-disabled] [data-disabled]) {

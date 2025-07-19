@@ -1,0 +1,25 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100dvb;
+}
+
+.login-card {
+  padding-inline: 1.25rem;
+  padding-block: 1.5rem;
+
+  background-color: var(--color-surface-container);
+  box-shadow: var(--elevation-1);
+
+  display: grid;
+  gap: 1.25rem;
+
+  width: min(90%, 30rem);
+  border-radius: var(--radius);
+}
+
+.login-submit {
+  text-align: center;
+}
