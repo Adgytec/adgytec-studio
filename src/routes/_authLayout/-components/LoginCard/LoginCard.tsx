@@ -89,9 +89,15 @@ const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
     }
   };
 
-  const handleResendCode = () => {
-    resetCountdown();
-    startCountdown();
+  const handleResendCode = async () => {
+    try {
+      await sendLoginCode(email);
+    } catch (err) {
+      // handle error here parseError and show toast
+    } finally {
+      resetCountdown();
+      startCountdown();
+    }
   };
 
   return (
