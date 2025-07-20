@@ -1,11 +1,13 @@
 export class AuthError extends Error {
-  message: string;
+  fieldError: boolean;
+  message: any;
 
-  constructor(message: string) {
+  constructor(data: any, fieldError = false) {
     super();
 
     this.name = "AuthError";
-    this.message = message;
+    this.fieldError = fieldError;
+    this.message = data;
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, AuthError);

@@ -23,10 +23,12 @@ export const ConfirmLoginSchema = z.object({
     .refine(
       (code) => `${code}`.length >= 6 && `${code}`.length <= 8,
       "Code should be of between 6-8 digits",
-    ),
+    )
+    .transform((code) => `${code}`),
 });
 
 export type ConfirmLoginValues = z.infer<typeof ConfirmLoginSchema>;
 export type LoginValues = z.infer<typeof LoginSchema>;
 
 export type SendLoginCode = (email: string) => Promise<void>;
+export type ConfirmLogin = (code: string) => Promise<void>;

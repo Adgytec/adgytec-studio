@@ -23,7 +23,7 @@ type NetworkError = {
 
 type TooManyRequestsError = {
   errorCode: ErrorCode.TOO_MANY_REQUESTS;
-  retryAfter: number; // time in ms
+  retryAfter?: number; // time in ms
 };
 
 type AuthenticationError = {

@@ -5,6 +5,7 @@ import {
   FilledButton,
   Input,
   TextButton,
+  type SubmitHandler,
 } from "@adgytec/adgytec-web-ui-components";
 import {
   ConfirmLoginSchema,
@@ -14,19 +15,25 @@ import {
   type ConfirmLoginValues,
   type LoginProps,
 } from "./types";
-import { Form, type FormReset } from "@adgytec/adgytec-web-ui-components";
+import { Form } from "@adgytec/adgytec-web-ui-components";
 import { useEffect, useState } from "react";
 import { useBoolean, useCountdown } from "usehooks-ts";
-import { sendLoginCode } from "./actions";
+import { confirmLogin, sendLoginCode } from "./actions";
+import { parseError } from "@/utils/error/error";
+import { ErrorCode } from "@/utils/error/types";
 
 const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
-  const handleLogin = async (
+  const handleLogin: SubmitHandler<LoginValues> = async (
     values: LoginValues,
-    _: HTMLFormElement["reset"],
+    _,
   ) => {
     setEmail(values.email);
-    await sendLoginCode(values.email);
-    goToConfirmLogin();
+    try {
+      await sendLoginCode(values.email);
+      goToConfirmLogin();
+    } catch (err) {
+      // handle error here parseError and show toast
+    }
   };
 
   return (
@@ -65,9 +72,21 @@ const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
     return resetCountdown;
   }, []);
 
-  const handleConfirmLogin = (values: ConfirmLoginValues, reset: FormReset) => {
-    console.log(values);
-    reset();
+  const handleConfirmLogin: SubmitHandler<ConfirmLoginValues> = async (
+    values,
+    _,
+  ) => {
+    try {
+      await confirmLogin(values.code);
+    } catch (err) {
+      // handle error here parseError and show toast
+      const errVal = parseError(err);
+      if (errVal.errorCode === ErrorCode.FORM_FIELD) {
+        return errVal.fieldErrors as Partial<
+          Record<keyof ConfirmLoginValues, string | string[]>
+        >;
+      }
+    }
   };
 
   const handleResendCode = () => {
@@ -147,7 +166,7 @@ export const LoginCard = () => {
     value: isLogin,
     setTrue: goToLogin,
     setFalse: goToConfirmLogin,
-  } = useBoolean(false);
+  } = useBoolean(true);
 
   return (
     <div className={styles["login-container"]}>
