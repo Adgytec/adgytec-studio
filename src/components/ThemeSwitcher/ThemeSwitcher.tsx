@@ -7,7 +7,7 @@ import {
 import type { Key } from "react-aria-components";
 import { useEffect } from "react";
 
-export const ThemeSwitcher = () => {
+export const ThemeSwitcher = ({ ui = true }: { ui?: boolean }) => {
   const { isDarkMode, ternaryDarkMode, setTernaryDarkMode } =
     useTernaryDarkMode();
 
@@ -40,13 +40,17 @@ export const ThemeSwitcher = () => {
     setTernaryDarkMode(theme);
   };
 
+  if (!ui) {
+    return <></>;
+  }
+
   return (
     <ToggleButtonGroup
       items={themeItems}
       selectionMode="single"
       selectedKeys={[ternaryDarkMode]}
       onSelectionChange={handleThemeChange}
-      theme={ColorTheme.primaryVariant}
+      theme={ColorTheme.primary}
     />
   );
 };
