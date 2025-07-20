@@ -7,10 +7,12 @@
 }
 
 .login-card {
+  --_background: var(--color-surface-container-low);
+
   padding-inline: 1.25rem;
   padding-block: 1.5rem;
 
-  background-color: var(--color-surface-container);
+  background-color: var(--_background);
   box-shadow: var(--elevation-1);
 
   display: grid;

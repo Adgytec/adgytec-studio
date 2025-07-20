@@ -20,8 +20,13 @@ export const ConfirmLoginSchema = z.object({
   code: z.coerce
     .number("Invalid code provided.")
     .positive("Invalid code provided.")
-    .refine((code) => `${code}`.length === 6, "Code should be of six digits"),
+    .refine(
+      (code) => `${code}`.length >= 6 && `${code}`.length <= 8,
+      "Code should be of between 6-8 digits",
+    ),
 });
 
 export type ConfirmLoginValues = z.infer<typeof ConfirmLoginSchema>;
 export type LoginValues = z.infer<typeof LoginSchema>;
+
+export type SendLoginCode = (email: string) => Promise<void>;

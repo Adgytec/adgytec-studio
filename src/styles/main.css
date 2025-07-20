@@ -143,8 +143,8 @@
   --font-normal: "Satoshi", sans-serif;
   --font-heading: "Cabinet Grotesk", sans;
 
-  --elevation-1: 0px 2px 6px 1.5px hsl(from var(--color-shadow) h s l / 0.375);
-  --elevation-2: 0px 4px 12px 1.5px hsl(from var(--color-shadow) h s l / 0.375);
+  --elevation-1: 0px 2px 6px hsl(from var(--color-shadow) h s l / 0.25);
+  --elevation-2: 0px 4px 12px hsl(from var(--color-shadow) h s l / 0.25);
 
   --disabled-opacity: 0.625;
   --button-border-width: 0.125rem;
@@ -155,6 +155,10 @@
   --form-input-gap: 0.5rem;
   --form-gap: 1.25rem;
 
+  --font-weight-regular: 500;
+  --font-weight-medium: 600;
+  --font-weight-bold: 800;
+
   caret-color: var(--color-primary);
   accent-color: var(--color-primary);
 }
@@ -162,7 +166,7 @@
 /* lucide icon global config */
 .lucide {
   width: 1rem;
-  aspect-ratio: 1/1;
+  height: 1rem;
   stroke-width: 0.1875rem;
 }
 
@@ -179,11 +183,12 @@ body {
   background-color: var(--color-surface);
   color: var(--color-on-surface);
   font-family: var(--font-normal);
+  font-weight: var(--font-weight-regular);
 }
 
 [data-heading] {
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 em,

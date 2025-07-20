@@ -17,10 +17,15 @@ import {
 import { Form, type FormReset } from "@adgytec/adgytec-web-ui-components";
 import { useEffect, useState } from "react";
 import { useBoolean, useCountdown } from "usehooks-ts";
+import { sendLoginCode } from "./actions";
 
 const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
-  const handleLogin = (values: LoginValues, _: HTMLFormElement["reset"]) => {
+  const handleLogin = async (
+    values: LoginValues,
+    _: HTMLFormElement["reset"],
+  ) => {
     setEmail(values.email);
+    await sendLoginCode(values.email);
     goToConfirmLogin();
   };
 
@@ -139,9 +144,9 @@ const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
 export const LoginCard = () => {
   const [email, setEmail] = useState("");
   const {
-    value: isConfirmLogin,
-    setTrue: goToConfirmLogin,
-    setFalse: goToLogin,
+    value: isLogin,
+    setTrue: goToLogin,
+    setFalse: goToConfirmLogin,
   } = useBoolean(false);
 
   return (
@@ -149,14 +154,14 @@ export const LoginCard = () => {
       <div className={styles["login-card"]}>
         <h1 data-heading="true">Studio Login</h1>
 
-        {isConfirmLogin ? (
-          <ConfirmLogin email={email} goToLogin={goToLogin} />
-        ) : (
+        {isLogin ? (
           <Login
             setEmail={setEmail}
             goToConfirmLogin={goToConfirmLogin}
             email={email}
           />
+        ) : (
+          <ConfirmLogin email={email} goToLogin={goToLogin} />
         )}
       </div>
     </div>
