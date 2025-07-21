@@ -11,6 +11,7 @@ import {
 } from "@adgytec/adgytec-web-ui-components";
 import {
   ConfirmLoginSchema,
+  resendCodeTimeLimit,
   type ConfirmLoginProps,
   type ConfirmLoginValues,
   type ResendButtonProps,
@@ -28,7 +29,7 @@ const ResendButton = ({ email, isDisabled = false }: ResendButtonProps) => {
   );
 
   const [remainingTime, { startCountdown, resetCountdown }] = useCountdown({
-    countStart: 45,
+    countStart: resendCodeTimeLimit,
   });
 
   useEffect(() => {
