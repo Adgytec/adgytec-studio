@@ -12,6 +12,11 @@ export interface ConfirmLoginProps {
   goToLogin: () => void;
 }
 
+export interface ResendButtonProps {
+  email: string;
+  isDisabled?: boolean;
+}
+
 export const LoginSchema = z.object({
   email: z.email().trim(),
 });

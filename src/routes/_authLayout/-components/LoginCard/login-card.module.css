@@ -25,3 +25,11 @@
 .login-submit {
   text-align: center;
 }
+
+.login-code-resend {
+  p {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+}

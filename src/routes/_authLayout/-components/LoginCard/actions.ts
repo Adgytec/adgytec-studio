@@ -17,6 +17,9 @@ export const sendLoginCode: SendLoginCode = async (email) => {
     }
   } catch (err) {
     // console.error("error occured during login: ", err);
+    if (err instanceof Error && err.name === "LimitExceededException") {
+      throw new AuthError("Code send limit reached. Please try again later.");
+    }
     throw new AuthError("Some went wrong during signin attempt.");
   }
 };
