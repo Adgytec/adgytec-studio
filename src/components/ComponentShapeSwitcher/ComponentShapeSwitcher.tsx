@@ -14,6 +14,7 @@ import { type Key } from "react-aria-components";
 
 export const ComponentShapeSwitcher = ({
   ui = true,
+  theme = ColorTheme.primary,
 }: ComponentShapeSwitcherProps) => {
   const [selectedShape, setShape, _] = useLocalStorage(
     ComponentShapeKey,
@@ -23,7 +24,7 @@ export const ComponentShapeSwitcher = ({
   const shapeItems: ToggleButtonGroupItem[] = [
     {
       id: ComponentShapes.sharp,
-      value: "Shape",
+      value: "Sharp",
     },
     {
       id: ComponentShapes.round,
@@ -50,7 +51,7 @@ export const ComponentShapeSwitcher = ({
       selectionMode="single"
       selectedKeys={[selectedShape]}
       onSelectionChange={handleShapeChange}
-      theme={ColorTheme.primaryVariant}
+      theme={theme}
     />
   );
 };

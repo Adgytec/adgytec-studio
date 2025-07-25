@@ -13,7 +13,7 @@ import { Devtools } from "@/components/Devtools/Devtools";
 import { useEffect } from "react";
 import { Hub } from "aws-amplify/utils";
 import { RouterProvider } from "react-aria-components";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher/ThemeSwitcher";
+import { VisualSettings } from "@/components/VisualSettings/VisualSettings";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -61,7 +61,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         }
         useHref={(to) => buildHref(to, router)}
       >
-        <ThemeSwitcher ui={false} />
+        <VisualSettings ui={false} />
         <Outlet />
         <Devtools />
       </RouterProvider>

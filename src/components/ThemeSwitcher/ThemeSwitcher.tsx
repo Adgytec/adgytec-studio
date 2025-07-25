@@ -6,8 +6,12 @@ import {
 } from "@adgytec/adgytec-web-ui-components";
 import type { Key } from "react-aria-components";
 import { useEffect } from "react";
+import type { ThemeSwitcherProps } from "./types";
 
-export const ThemeSwitcher = ({ ui = true }: { ui?: boolean }) => {
+export const ThemeSwitcher = ({
+  ui = true,
+  theme = ColorTheme.primary,
+}: ThemeSwitcherProps) => {
   const { isDarkMode, ternaryDarkMode, setTernaryDarkMode } =
     useTernaryDarkMode();
 
@@ -50,7 +54,7 @@ export const ThemeSwitcher = ({ ui = true }: { ui?: boolean }) => {
       selectionMode="single"
       selectedKeys={[ternaryDarkMode]}
       onSelectionChange={handleThemeChange}
-      theme={ColorTheme.primary}
+      theme={theme}
     />
   );
 };
