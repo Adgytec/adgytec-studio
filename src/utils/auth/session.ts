@@ -6,7 +6,7 @@ const getUserSession = async () => {
     const session = await fetchAuthSession();
     return session.userSub ? session : null;
   } catch (err) {
-    console.error("Error getting user session: ", err);
+    // console.error("Error getting user session: ", err);
     return null;
   }
 };

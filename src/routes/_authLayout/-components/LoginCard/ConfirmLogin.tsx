@@ -8,6 +8,7 @@ import {
   type SubmitHandler,
   ButtonState,
   ButtonChild,
+  Error,
 } from "@adgytec/adgytec-web-ui-components";
 import {
   ConfirmLoginSchema,
@@ -47,8 +48,6 @@ const ResendButton = ({ email, isDisabled = false }: ResendButtonProps) => {
       setResendButtonState(ButtonState.completed);
     } catch (err) {
       setResendButtonState(ButtonState.error);
-
-      // handle error here parseError and show toast
     } finally {
       resetCountdown();
       startCountdown();
@@ -86,6 +85,7 @@ const ResendButton = ({ email, isDisabled = false }: ResendButtonProps) => {
 };
 
 export const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
+  const [formError, setFormError] = useState<string | null>(null);
   const [loginButtonState, setLoginButtonState] = useState<ButtonState>(
     ButtonState.enabled,
   );
@@ -95,6 +95,8 @@ export const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
     _,
   ) => {
     setLoginButtonState(ButtonState.pending);
+    setFormError(null);
+
     try {
       await confirmLogin(values.code);
 
@@ -108,6 +110,11 @@ export const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
         return errVal.fieldErrors as Partial<
           Record<keyof ConfirmLoginValues, string | string[]>
         >;
+      }
+
+      const errValue = parseError(err);
+      if (errValue.errorCode === ErrorCode.FORM_ACTION) {
+        setFormError(errValue.message);
       }
     }
   };
@@ -166,6 +173,8 @@ export const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
             />
           </FilledButton>
         </div>
+
+        {formError && <Error>{formError}</Error>}
       </Form>
 
       <div className={styles["confirm-login-actions"]}>

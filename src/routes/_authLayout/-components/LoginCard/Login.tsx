@@ -5,13 +5,17 @@ import {
   type SubmitHandler,
   ButtonState,
   ButtonChild,
+  Error,
 } from "@adgytec/adgytec-web-ui-components";
 import { type LoginValues, LoginSchema, type LoginProps } from "./types";
 import { Form } from "@adgytec/adgytec-web-ui-components";
 import { sendLoginCode } from "./actions";
 import { useState } from "react";
+import { parseError } from "@/utils/error/error";
+import { ErrorCode } from "@/utils/error/types";
 
 export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
+  const [formError, setFormError] = useState<string | null>(null);
   const [loginButtonState, setLoginButtonState] = useState<ButtonState>(
     ButtonState.enabled,
   );
@@ -22,6 +26,8 @@ export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
   ) => {
     setLoginButtonState(ButtonState.pending);
     setEmail(values.email);
+    setFormError(null);
+
     try {
       await sendLoginCode(values.email);
       goToConfirmLogin();
@@ -30,7 +36,11 @@ export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
     } catch (err) {
       setLoginButtonState(ButtonState.error);
 
-      // handle error here parseError and show toast
+      // handle error here parseError
+      const errValue = parseError(err);
+      if (errValue.errorCode === ErrorCode.FORM_ACTION) {
+        setFormError(errValue.message);
+      }
     }
   };
 
@@ -68,6 +78,8 @@ export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
           />
         </FilledButton>
       </div>
+
+      {formError && <Error>{formError}</Error>}
     </Form>
   );
 };
