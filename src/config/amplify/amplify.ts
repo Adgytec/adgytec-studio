@@ -16,10 +16,10 @@ Amplify.configure({
           bucketName: getEnvVar("VITE_S3_STUDIO_BUCKET"),
           region: getEnvVar("VITE_S3_STUDIO_BUCKET_REGION"),
         },
-        "drive-storage-bucket": {
-          bucketName: getEnvVar("VITE_S3_DRIVE_STORAGE_BUCKET"),
-          region: getEnvVar("VITE_S3_DRIVE_STORAGE_BUCKET_REGION"),
-        },
+        // "drive-storage-bucket": {
+        //   bucketName: getEnvVar("VITE_S3_DRIVE_STORAGE_BUCKET"),
+        //   region: getEnvVar("VITE_S3_DRIVE_STORAGE_BUCKET_REGION"),
+        // },
       },
     },
   },
