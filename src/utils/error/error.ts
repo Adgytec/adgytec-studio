@@ -38,16 +38,18 @@ export const parseError = (error: any): AppError => {
     if (error.status >= 500) {
       return {
         errorCode: ErrorCode.SERVER,
-        message: error.message,
+        message:
+          error.data.message ??
+          "Internal server error. Please try again later.",
       };
     }
 
     switch (error.status) {
       case 400:
-        if (error.data?.code === ErrorCode.FORM_FIELD) {
+        if (error.data?.errorCode === ErrorCode.FORM_FIELD) {
           return {
             errorCode: ErrorCode.FORM_FIELD,
-            fieldErrors: error.data.fieldErrors,
+            fieldErrors: error.data.fieldErrors ?? {},
           };
         } else {
           return {
@@ -91,6 +93,12 @@ export const parseError = (error: any): AppError => {
           retryAfter:
             Number(error.response.headers.get("retry-after")) * 1000 || 1000,
           message: error.data?.message ?? "Too many requests. Try again later.",
+        };
+
+      case 413:
+        return {
+          errorCode: ErrorCode.CONTENT_TOO_LARGE,
+          message: error.data?.message ?? "Request contnet too large.",
         };
 
       default:

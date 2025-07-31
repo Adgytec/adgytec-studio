@@ -8,6 +8,7 @@ export enum ErrorCode {
   METHOD_NOT_ALLOWED = "method-not-allowed-error",
   FORM_FIELD = "form-field-error",
   FORM_ACTION = "form-action-error",
+  CONTENT_TOO_LARGE = "content-too-large-error",
   UNKNOWN = "unknown-error",
 }
 
@@ -57,6 +58,11 @@ type FormActionError = {
   message: string;
 };
 
+type ContentTooLargeError = {
+  errorCode: ErrorCode.CONTENT_TOO_LARGE;
+  message: string;
+};
+
 type UnknownError = {
   errorCode: ErrorCode.UNKNOWN;
   message: string;
@@ -72,4 +78,5 @@ export type AppError =
   | MethodNotAllowedError
   | FormFieldError
   | FormActionError
+  | ContentTooLargeError
   | UnknownError;

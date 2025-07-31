@@ -36,7 +36,6 @@ export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
     } catch (err) {
       setLoginButtonState(ButtonState.error);
 
-      // handle error here parseError
       const errValue = parseError(err);
       if (errValue.errorCode === ErrorCode.FORM_ACTION) {
         setFormError(errValue.message);
