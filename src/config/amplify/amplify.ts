@@ -9,18 +9,4 @@ Amplify.configure({
       identityPoolId: getEnvVar("VITE_COGNITO_IDENTITY_POOL_ID"),
     },
   },
-  Storage: {
-    S3: {
-      buckets: {
-        "studio-bucket": {
-          bucketName: getEnvVar("VITE_S3_STUDIO_BUCKET"),
-          region: getEnvVar("VITE_S3_STUDIO_BUCKET_REGION"),
-        },
-        // "drive-storage-bucket": {
-        //   bucketName: getEnvVar("VITE_S3_DRIVE_STORAGE_BUCKET"),
-        //   region: getEnvVar("VITE_S3_DRIVE_STORAGE_BUCKET_REGION"),
-        // },
-      },
-    },
-  },
 });
