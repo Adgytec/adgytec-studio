@@ -112,10 +112,7 @@ export const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
         >;
       }
 
-      const errValue = parseError(err);
-      if (errValue.errorCode === ErrorCode.FORM_ACTION) {
-        setFormError(errValue.message);
-      }
+      setFormError(errVal.message);
     }
   };
 

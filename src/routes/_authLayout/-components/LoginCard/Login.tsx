@@ -43,9 +43,7 @@ export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
         >;
       }
 
-      if (errValue.errorCode === ErrorCode.FORM_ACTION) {
-        setFormError(errValue.message);
-      }
+      setFormError(errValue.message);
     }
   };
 

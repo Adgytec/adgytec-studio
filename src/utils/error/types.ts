@@ -7,7 +7,7 @@ export enum ErrorCode {
   NOT_FOUND = "not-found-error",
   METHOD_NOT_ALLOWED = "method-not-allowed-error",
   FORM_FIELD = "form-field-error",
-  FORM_ACTION = "form-action-error",
+  USER_ACTION = "user-action-error",
   CONTENT_TOO_LARGE = "content-too-large-error",
   UNKNOWN = "unknown-error",
 }
@@ -24,7 +24,7 @@ type NetworkError = {
 
 type TooManyRequestsError = {
   errorCode: ErrorCode.TOO_MANY_REQUESTS;
-  retryAfter?: number; // time in ms
+  retryAfter: number; // ms
   message: string;
 };
 
@@ -53,8 +53,8 @@ type FormFieldError = {
   fieldErrors: Record<string, string | string[]>;
 };
 
-type FormActionError = {
-  errorCode: ErrorCode.FORM_ACTION;
+type UserActionError = {
+  errorCode: ErrorCode.USER_ACTION;
   message: string;
 };
 
@@ -77,6 +77,6 @@ export type AppError =
   | NotFoundError
   | MethodNotAllowedError
   | FormFieldError
-  | FormActionError
+  | UserActionError
   | ContentTooLargeError
   | UnknownError;

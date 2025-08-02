@@ -28,14 +28,14 @@ export const parseError = (error: any): AppError => {
     }
 
     return {
-      errorCode: ErrorCode.FORM_ACTION,
+      errorCode: ErrorCode.USER_ACTION,
       message: error.message,
     };
   }
 
   if (error instanceof ApiError) {
     // server error
-    if (error.status >= 500) {
+    if (error.response.status >= 500) {
       return {
         errorCode: ErrorCode.SERVER,
         message:
@@ -44,21 +44,20 @@ export const parseError = (error: any): AppError => {
       };
     }
 
-    switch (error.status) {
+    switch (error.response.status) {
+      case 422:
+        return {
+          errorCode: ErrorCode.FORM_FIELD,
+          fieldErrors: error.data.fieldErrors ?? {},
+        };
+
       case 400:
-        if (error.data?.errorCode === ErrorCode.FORM_FIELD) {
-          return {
-            errorCode: ErrorCode.FORM_FIELD,
-            fieldErrors: error.data.fieldErrors ?? {},
-          };
-        } else {
-          return {
-            errorCode: ErrorCode.FORM_ACTION,
-            message:
-              error.data?.message ??
-              "Something went wrong while processing your request.",
-          };
-        }
+        return {
+          errorCode: ErrorCode.USER_ACTION,
+          message:
+            error.data?.message ??
+            "Something went wrong while processing your request.",
+        };
 
       case 401:
         return {
@@ -92,7 +91,7 @@ export const parseError = (error: any): AppError => {
           errorCode: ErrorCode.TOO_MANY_REQUESTS,
           retryAfter:
             Number(error.response.headers.get("retry-after")) * 1000 || 1000,
-          message: error.data?.message ?? "Too many requests. Try again later.",
+          message: "Too many requests. Try again later.",
         };
 
       case 413:
@@ -103,10 +102,8 @@ export const parseError = (error: any): AppError => {
 
       default:
         return {
-          errorCode: ErrorCode.SERVER,
-          message:
-            error.data?.message ??
-            `Unexpected error occurred (status: ${error.status})`,
+          errorCode: ErrorCode.UNKNOWN,
+          message: error.data?.message ?? `Unexpected error occurred.`,
         };
     }
   }
