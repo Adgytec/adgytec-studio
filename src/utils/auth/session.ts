@@ -1,14 +1,14 @@
-import { fetchAuthSession } from "aws-amplify/auth";
-import type { IsAuthenticated, IsNotAuthenticated } from "./types";
+import type {
+  GetUserSession,
+  IsAuthenticated,
+  IsInManagement,
+  IsNotAuthenticated,
+  RefreshUserSession,
+} from "./types";
+import { cognitoGetUserSession, cognitoIsInManagement } from "./cognito";
 
-const getUserSession = async () => {
-  try {
-    const session = await fetchAuthSession();
-    return session.userSub ? session : null;
-  } catch (err) {
-    // console.error("Error getting user session: ", err);
-    return null;
-  }
+const getUserSession: GetUserSession = async (options) => {
+  return cognitoGetUserSession(options);
 };
 
 export const isAuthenticated: IsAuthenticated = async () => {
@@ -17,4 +17,12 @@ export const isAuthenticated: IsAuthenticated = async () => {
 
 export const isNotAuthenticated: IsNotAuthenticated = async () => {
   return !(await isAuthenticated());
+};
+
+export const isInManagement: IsInManagement = async () => {
+  return await cognitoIsInManagement();
+};
+
+export const refreshUserSession: RefreshUserSession = async () => {
+  return await getUserSession({ refresh: true });
 };
