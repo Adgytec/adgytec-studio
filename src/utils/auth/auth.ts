@@ -1,11 +1,26 @@
 import type {
+  ConfirmLogin,
   GetUserSession,
   IsAuthenticated,
   IsInManagement,
   IsNotAuthenticated,
   RefreshUserSession,
+  SendLoginCode,
 } from "./types";
-import { cognitoGetUserSession, cognitoIsInManagement } from "./cognito";
+import {
+  cognitoconfirmLogin,
+  cognitoGetUserSession,
+  cognitoIsInManagement,
+  cognitosendLoginCode,
+} from "./cognito";
+
+export const sendLoginCode: SendLoginCode = async (email) => {
+  return cognitosendLoginCode(email);
+};
+
+export const confirmLogin: ConfirmLogin = async (code) => {
+  return cognitoconfirmLogin(code);
+};
 
 const getUserSession: GetUserSession = async (options) => {
   return cognitoGetUserSession(options);

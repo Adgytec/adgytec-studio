@@ -9,10 +9,10 @@ import {
 } from "@adgytec/adgytec-web-ui-components";
 import { type LoginValues, LoginSchema, type LoginProps } from "./types";
 import { Form } from "@adgytec/adgytec-web-ui-components";
-import { sendLoginCode } from "./actions";
 import { useState } from "react";
 import { parseError } from "@/utils/error/error";
 import { ErrorCode } from "@/utils/error/types";
+import { sendLoginCode } from "@/utils/auth/auth";
 
 export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
   const [formError, setFormError] = useState<string | null>(null);

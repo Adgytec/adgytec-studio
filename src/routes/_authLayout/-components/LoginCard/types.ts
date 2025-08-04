@@ -36,6 +36,3 @@ export const ConfirmLoginSchema = z.object({
 
 export type ConfirmLoginValues = z.infer<typeof ConfirmLoginSchema>;
 export type LoginValues = z.infer<typeof LoginSchema>;
-
-export type SendLoginCode = (email: string) => Promise<void>;
-export type ConfirmLogin = (code: string) => Promise<void>;

@@ -1,4 +1,4 @@
-import { isNotAuthenticated } from "@/utils/auth/session";
+import { isNotAuthenticated } from "@/utils/auth/auth";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_homeLayout")({

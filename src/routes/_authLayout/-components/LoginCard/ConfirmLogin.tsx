@@ -20,9 +20,9 @@ import {
 import { Form } from "@adgytec/adgytec-web-ui-components";
 import { useEffect, useState } from "react";
 import { useCountdown } from "usehooks-ts";
-import { confirmLogin, sendLoginCode } from "./actions";
 import { parseError } from "@/utils/error/error";
 import { ErrorCode } from "@/utils/error/types";
+import { confirmLogin, sendLoginCode } from "@/utils/auth/auth";
 
 const ResendButton = ({ email, isDisabled = false }: ResendButtonProps) => {
   const [resendButtonState, setResendButtonState] = useState<ButtonState>(

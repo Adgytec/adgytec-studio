@@ -1,4 +1,4 @@
-import { isAuthenticated } from "@/utils/auth/session";
+import { isAuthenticated } from "@/utils/auth/auth";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_authLayout")({
