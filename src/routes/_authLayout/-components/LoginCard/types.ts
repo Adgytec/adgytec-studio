@@ -1,8 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 import * as z from "zod";
 
-export const resendCodeTimeLimit = 45;
-
 export interface LoginProps {
   email: string;
   setEmail: Dispatch<SetStateAction<string>>;

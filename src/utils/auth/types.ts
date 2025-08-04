@@ -33,6 +33,12 @@ export type GetUserSession = (
 
 export type RefreshUserSession = () => Promise<UserSession | null>;
 
+export type AuthEvent = "login" | "logout" | "tokenRefresh";
+
+export type AuthEventListener = (event: AuthEvent) => void;
+
+export type ListenToAuthEvents = (cb: AuthEventListener) => () => void;
+
 export const CognitoGroupKey = "cognito:groups";
 export const CognitoManagementGroup = "management";
 export const ResendCodeTimeLimit = 45; // in seconds

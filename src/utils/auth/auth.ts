@@ -4,12 +4,14 @@ import type {
   IsAuthenticated,
   IsInManagement,
   IsNotAuthenticated,
+  ListenToAuthEvents,
   RefreshUserSession,
   SendLoginCode,
 } from "./types";
 import {
   cognitoconfirmLogin,
   cognitoGetUserSession,
+  cognitoHandleAuthEvents,
   cognitoIsInManagement,
   cognitosendLoginCode,
 } from "./cognito";
@@ -40,4 +42,8 @@ export const isInManagement: IsInManagement = async () => {
 
 export const refreshUserSession: RefreshUserSession = async () => {
   return await getUserSession({ refresh: true });
+};
+
+export const listenToAuthEvents: ListenToAuthEvents = (cb) => {
+  return cognitoHandleAuthEvents(cb);
 };

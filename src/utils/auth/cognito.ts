@@ -5,9 +5,11 @@ import {
   type IsInManagement,
   type SendLoginCode,
   type ConfirmLogin,
+  type ListenToAuthEvents,
 } from "./types";
 import { fetchAuthSession, confirmSignIn, signIn } from "aws-amplify/auth";
 import { AuthError } from "@/custom/Error/AuthError";
+import { Hub } from "aws-amplify/utils";
 
 export const cognitoGetUserSession: GetUserSession = async (options) => {
   try {
@@ -93,4 +95,23 @@ export const cognitoconfirmLogin: ConfirmLogin = async (code) => {
 
     throw new AuthError("Something went wrong. Please try again later.");
   }
+};
+
+export const cognitoHandleAuthEvents: ListenToAuthEvents = (cb) => {
+  const hubListenerCancellation = Hub.listen("auth", ({ payload }) => {
+    switch (payload.event) {
+      case "signedIn":
+      case "signInWithRedirect":
+        cb("login");
+        break;
+      case "tokenRefresh":
+        cb("tokenRefresh");
+        break;
+      default:
+        cb("logout");
+        break;
+    }
+  });
+
+  return hubListenerCancellation;
 };

@@ -11,9 +11,9 @@ import {
 import type { QueryClient } from "@tanstack/react-query";
 import { Devtools } from "@/components/Devtools/Devtools";
 import { useEffect } from "react";
-import { Hub } from "aws-amplify/utils";
 import { RouterProvider } from "react-aria-components";
 import { VisualSettings } from "@/components/VisualSettings/VisualSettings";
+import { listenToAuthEvents } from "@/utils/auth/auth";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -34,21 +34,20 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     const router = useRouter();
 
     useEffect(() => {
-      const hubListenerCancellation = Hub.listen("auth", ({ payload }) => {
-        switch (payload.event) {
-          case "signedIn":
-          case "signInWithRedirect":
+      const cancel = listenToAuthEvents((event) => {
+        switch (event) {
+          case "login":
             navigate({ to: "/" });
             break;
-          case "tokenRefresh":
+          case "logout":
+            navigate({ to: "/login" });
             break;
           default:
-            navigate({ to: "/login" });
             break;
         }
       });
 
-      return hubListenerCancellation;
+      return cancel;
     }, []);
 
     return (
