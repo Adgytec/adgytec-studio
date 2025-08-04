@@ -19,7 +19,7 @@ export const LoginCard = () => {
         <VisualSettings />
       </div>
 
-      <div className={styles["login-card"]}>
+      <div className={styles["login-card"]} data-container="true">
         <h1 data-heading="true">Studio Login</h1>
 
         {isLogin ? (
