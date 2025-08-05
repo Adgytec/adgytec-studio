@@ -5,12 +5,12 @@ import {
   type ComponentShapeSwitcherProps,
 } from "./types";
 import { useEffect } from "react";
+import { type Key } from "react-aria-components";
+import { ColorTheme } from "@adgytec/adgytec-web-ui-components";
 import {
   type ToggleButtonGroupItem,
-  ColorTheme,
   ToggleButtonGroup,
-} from "@adgytec/adgytec-web-ui-components";
-import { type Key } from "react-aria-components";
+} from "@adgytec/adgytec-web-ui-components/ToggleButtonGroup";
 
 export const ComponentShapeSwitcher = ({
   ui = true,

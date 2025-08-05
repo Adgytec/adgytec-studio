@@ -14,13 +14,10 @@
 }
 
 .login-card {
-  box-shadow: var(--elevation-1);
-
   display: grid;
   gap: 1.25rem;
 
   width: min(90%, 30rem);
-  border-radius: var(--radius);
 }
 
 .login-submit {

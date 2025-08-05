@@ -1,28 +1,30 @@
 import styles from "./login-card.module.css";
 import {
-  ButtonShape,
-  ColorTheme,
-  FilledButton,
-  Input,
-  TextButton,
-  type SubmitHandler,
-  ButtonState,
-  ButtonChild,
-  Error,
-} from "@adgytec/adgytec-web-ui-components";
-import {
   ConfirmLoginSchema,
   type ConfirmLoginProps,
   type ConfirmLoginValues,
   type ResendButtonProps,
 } from "./types";
-import { Form } from "@adgytec/adgytec-web-ui-components";
 import { useEffect, useState } from "react";
 import { useCountdown } from "usehooks-ts";
 import { parseError } from "@/utils/error/error";
 import { ErrorCode } from "@/utils/error/types";
 import { confirmLogin, sendLoginCode } from "@/utils/auth/auth";
 import { ResendCodeTimeLimit } from "@/utils/auth/types";
+import {
+  ButtonState,
+  ButtonChild,
+} from "@adgytec/adgytec-web-ui-components/Button/ButtonChild";
+import { FilledButton } from "@adgytec/adgytec-web-ui-components/Button/FilledButton";
+import {
+  type SubmitHandler,
+  Form,
+} from "@adgytec/adgytec-web-ui-components/Form/Form";
+import { Input } from "@adgytec/adgytec-web-ui-components/Form/Input";
+import { Error } from "@adgytec/adgytec-web-ui-components/Error";
+import { TextButton } from "@adgytec/adgytec-web-ui-components/Button/TextButton";
+import { ButtonShape } from "@adgytec/adgytec-web-ui-components/Button/ButtonBase";
+import { ColorTheme } from "@adgytec/adgytec-web-ui-components";
 
 const ResendButton = ({ email, isDisabled = false }: ResendButtonProps) => {
   const [resendButtonState, setResendButtonState] = useState<ButtonState>(

@@ -1,9 +1,7 @@
-import {
-  ButtonShape,
-  ColorTheme,
-  PopoverDialog,
-  TextButton,
-} from "@adgytec/adgytec-web-ui-components";
+import { ColorTheme } from "@adgytec/adgytec-web-ui-components";
+import { PopoverDialog } from "@adgytec/adgytec-web-ui-components/Popover/PopoverDialog";
+import { TextButton } from "@adgytec/adgytec-web-ui-components/Button/TextButton";
+import { ButtonShape } from "@adgytec/adgytec-web-ui-components/Button/ButtonBase";
 import { ComponentShapeSwitcher } from "../ComponentShapeSwitcher/ComponentShapeSwitcher";
 import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
 import { Settings } from "lucide-react";

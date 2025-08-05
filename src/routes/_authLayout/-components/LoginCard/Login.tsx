@@ -1,18 +1,20 @@
 import styles from "./login-card.module.css";
-import {
-  FilledButton,
-  Input,
-  type SubmitHandler,
-  ButtonState,
-  ButtonChild,
-  Error,
-} from "@adgytec/adgytec-web-ui-components";
 import { type LoginValues, LoginSchema, type LoginProps } from "./types";
-import { Form } from "@adgytec/adgytec-web-ui-components";
 import { useState } from "react";
 import { parseError } from "@/utils/error/error";
 import { ErrorCode } from "@/utils/error/types";
 import { sendLoginCode } from "@/utils/auth/auth";
+import {
+  ButtonState,
+  ButtonChild,
+} from "@adgytec/adgytec-web-ui-components/Button/ButtonChild";
+import { FilledButton } from "@adgytec/adgytec-web-ui-components/Button/FilledButton";
+import {
+  type SubmitHandler,
+  Form,
+} from "@adgytec/adgytec-web-ui-components/Form/Form";
+import { Input } from "@adgytec/adgytec-web-ui-components/Form/Input";
+import { Error } from "@adgytec/adgytec-web-ui-components/Error";
 
 export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
   const [formError, setFormError] = useState<string | null>(null);
