@@ -30,11 +30,15 @@ export const ThemeSwitcher = ({
     },
   ];
 
-  useEffect(() => {
+  const updateTheme = () => {
     document.documentElement.setAttribute(
       "data-theme",
       isDarkMode ? "dark" : "light",
     );
+  };
+
+  useEffect(() => {
+    updateTheme();
   }, [isDarkMode]);
 
   const handleThemeChange = (keys: Set<Key>) => {
