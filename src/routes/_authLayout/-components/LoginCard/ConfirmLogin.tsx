@@ -5,7 +5,7 @@ import {
   type ConfirmLoginValues,
   type ResendButtonProps,
 } from "./types";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCountdown } from "usehooks-ts";
 import { parseError } from "@/utils/error/error";
 import { ErrorCode } from "@/utils/error/types";
@@ -26,7 +26,10 @@ import { TextButton } from "@adgytec/adgytec-web-ui-components/Button/TextButton
 import { ButtonShape } from "@adgytec/adgytec-web-ui-components/Button/ButtonBase";
 import { ColorTheme } from "@adgytec/adgytec-web-ui-components";
 
-const ResendButton = ({ email, isDisabled = false }: ResendButtonProps) => {
+const ResendButton: React.FC<ResendButtonProps> = ({
+  email,
+  isDisabled = false,
+}) => {
   const [resendButtonState, setResendButtonState] = useState<ButtonState>(
     ButtonState.enabled,
   );
@@ -86,7 +89,10 @@ const ResendButton = ({ email, isDisabled = false }: ResendButtonProps) => {
   );
 };
 
-export const ConfirmLogin = ({ email, goToLogin }: ConfirmLoginProps) => {
+export const ConfirmLogin: React.FC<ConfirmLoginProps> = ({
+  email,
+  goToLogin,
+}) => {
   const [formError, setFormError] = useState<string | null>(null);
   const [loginButtonState, setLoginButtonState] = useState<ButtonState>(
     ButtonState.enabled,

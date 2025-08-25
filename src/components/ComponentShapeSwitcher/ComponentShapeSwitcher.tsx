@@ -4,7 +4,7 @@ import {
   ComponentShapes,
   type ComponentShapeSwitcherProps,
 } from "./types";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { type Key } from "react-aria-components";
 import { ColorTheme } from "@adgytec/adgytec-web-ui-components";
 import {
@@ -12,10 +12,10 @@ import {
   ToggleButtonGroup,
 } from "@adgytec/adgytec-web-ui-components/ToggleButtonGroup";
 
-export const ComponentShapeSwitcher = ({
+export const ComponentShapeSwitcher: React.FC<ComponentShapeSwitcherProps> = ({
   ui = true,
   theme = ColorTheme.primary,
-}: ComponentShapeSwitcherProps) => {
+}) => {
   const [selectedShape, setShape, _] = useLocalStorage(
     ComponentShapeKey,
     ComponentShapes.sharp,

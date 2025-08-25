@@ -1,6 +1,6 @@
 import styles from "./login-card.module.css";
 import { type LoginValues, LoginSchema, type LoginProps } from "./types";
-import { useState } from "react";
+import React, { useState } from "react";
 import { parseError } from "@/utils/error/error";
 import { ErrorCode } from "@/utils/error/types";
 import { sendLoginCode } from "@/utils/auth/auth";
@@ -16,7 +16,11 @@ import {
 import { Input } from "@adgytec/adgytec-web-ui-components/Form/Input";
 import { Error } from "@adgytec/adgytec-web-ui-components/Error";
 
-export const Login = ({ setEmail, goToConfirmLogin, email }: LoginProps) => {
+export const Login: React.FC<LoginProps> = ({
+  setEmail,
+  goToConfirmLogin,
+  email,
+}) => {
   const [formError, setFormError] = useState<string | null>(null);
   const [loginButtonState, setLoginButtonState] = useState<ButtonState>(
     ButtonState.enabled,

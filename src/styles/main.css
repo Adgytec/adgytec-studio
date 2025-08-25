@@ -195,23 +195,3 @@ i {
   font-family: var(--font-normal);
   font-style: italic;
 }
-
-[data-container] {
-  padding-inline: 1.25rem;
-  padding-block: 1.5rem;
-
-  background-image:
-    radial-gradient(
-      ellipse at top,
-      var(--color-surface-container-low),
-      transparent
-    ),
-    radial-gradient(
-      ellipse at bottom,
-      var(--color-surface-container-high),
-      transparent
-    );
-
-  border-radius: var(--radius);
-  box-shadow: var(--elevation-1);
-}
