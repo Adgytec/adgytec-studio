@@ -6,8 +6,12 @@ import { ComponentShapeSwitcher } from "../ComponentShapeSwitcher/ComponentShape
 import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
 import { Settings } from "lucide-react";
 import styles from "./visual-settings.module.css";
+import type React from "react";
+import type { VisualSettingsProps } from "./types";
 
-export const VisualSettings = ({ ui = true }: { ui?: boolean }) => {
+export const VisualSettings: React.FC<VisualSettingsProps> = ({
+  ui = true,
+}) => {
   if (!ui) {
     return (
       <>
