@@ -1,6 +1,6 @@
 import { useTernaryDarkMode, type TernaryDarkMode } from "usehooks-ts";
 import type { Key } from "react-aria-components";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import type { ThemeSwitcherProps } from "./types";
 import { ColorTheme } from "@adgytec/adgytec-web-ui-components";
 import {
@@ -8,10 +8,10 @@ import {
   ToggleButtonGroup,
 } from "@adgytec/adgytec-web-ui-components/ToggleButtonGroup";
 
-export const ThemeSwitcher = ({
+export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   ui = true,
   theme = ColorTheme.primary,
-}: ThemeSwitcherProps) => {
+}) => {
   const { isDarkMode, ternaryDarkMode, setTernaryDarkMode } =
     useTernaryDarkMode();
 
