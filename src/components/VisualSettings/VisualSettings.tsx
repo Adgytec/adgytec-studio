@@ -49,20 +49,16 @@ export const VisualSettings: React.FC<VisualSettingsProps> = ({
         </TextButton>
       }
     >
-      <SolidCard>
-        <div className={styles["visual-settings"]}>
-          {visualSettingsItems.map((visualItem) => {
-            return (
-              <div className={styles["settings-item"]} key={visualItem.heading}>
-                <div>
-                  <h3 data-heading="true">{visualItem.heading}</h3>
-                  <p>{visualItem.description}</p>
-                </div>
-                <visualItem.Component theme={itemTheme} />
-              </div>
-            );
-          })}
-        </div>
+      <SolidCard className={styles["visual-settings"]}>
+        {visualSettingsItems.map((visualItem) => (
+          <div className={styles["settings-item"]} key={visualItem.heading}>
+            <div>
+              <h3 data-heading="true">{visualItem.heading}</h3>
+              <p>{visualItem.description}</p>
+            </div>
+            <visualItem.Component theme={itemTheme} />
+          </div>
+        ))}
       </SolidCard>
     </PopoverDialog>
   );
