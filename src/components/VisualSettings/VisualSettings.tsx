@@ -8,6 +8,7 @@ import { Settings } from "lucide-react";
 import styles from "./visual-settings.module.css";
 import type React from "react";
 import type { VisualSettingsProps } from "./types";
+import { SolidCard } from "@adgytec/adgytec-web-ui-components/Card/SolidCard";
 
 export const VisualSettings: React.FC<VisualSettingsProps> = ({
   ui = true,
@@ -48,19 +49,21 @@ export const VisualSettings: React.FC<VisualSettingsProps> = ({
         </TextButton>
       }
     >
-      <div className={styles["visual-settings"]}>
-        {visualSettingsItems.map((visualItem) => {
-          return (
-            <div className={styles["settings-item"]} key={visualItem.heading}>
-              <div>
-                <h3 data-heading="true">{visualItem.heading}</h3>
-                <p>{visualItem.description}</p>
+      <SolidCard>
+        <div className={styles["visual-settings"]}>
+          {visualSettingsItems.map((visualItem) => {
+            return (
+              <div className={styles["settings-item"]} key={visualItem.heading}>
+                <div>
+                  <h3 data-heading="true">{visualItem.heading}</h3>
+                  <p>{visualItem.description}</p>
+                </div>
+                <visualItem.Component theme={itemTheme} />
               </div>
-              <visualItem.Component theme={itemTheme} />
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </SolidCard>
     </PopoverDialog>
   );
 };
